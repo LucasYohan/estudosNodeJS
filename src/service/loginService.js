@@ -1,11 +1,11 @@
-import database from "../repository/mysql.js";
+import dataBase from "../repository/mysql.js";
 
 async function login(email, password) {
   const sql = "SELECT * FROM tbl_usuario WHERE email = ? AND senha = ?";
 
   const dataLogin = [email, password];
 
-  const conn = await database.connectDB();
+  const conn = await dataBase.connectDB();
   const [rows] = await conn.query(sql, dataLogin);
   conn.end();
 
@@ -15,7 +15,7 @@ async function login(email, password) {
 async function checkEmail(email) {
   const sql = "SELECT * FROM tbl_usuario WHERE email = ?";
 
-  const conn = await database.connectDB();
+  const conn = await dataBase.connectDB();
   const [rows] = await conn.query(sql, email);
   conn.end();
 
@@ -24,9 +24,10 @@ async function checkEmail(email) {
 
 async function changePassword(email, newPassword) {
   const sql = "UPDATE tbl_usuario SET senha = ? WHERE email = ?";
+  
   const dataNewPass = [newPassword, email];
 
-  const conn = await database.connectDB();
+  const conn = await dataBase.connectDB();
   const [rows] = await conn.query(sql, dataNewPass);
   conn.end();
 }
